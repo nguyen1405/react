@@ -7,10 +7,10 @@ const student = {
 
 const {fullName,id}=student
 const {city} = student.address
-const avg = scores.reduce((sum, score) => sum + score, 0) / scores.length;
+const avg = student.scores.reduce((sum, score) => sum + score, 0) / student.scores.length;
 const graduated ={
     ...student,
-    status: "grauated"
+    status: "graduated"
 };
 
 const employees = [
@@ -27,5 +27,12 @@ const sumTotal = employees
 const highSalaryNames = employees
   .filter(emp => emp.salary > 18000000)
   .map(emp => emp.name);
-console.log(highSalaryNames); 
-const idx = products.findIndex(emp => emp.id === 3);
+const idx = employees.findIndex(emp => emp.id === 3);
+const empById = employees.find(emp => emp.id === 3);
+console.log("Nhân viên lương cao:", highSalaryNames);
+console.log("Trung bình điểm:", avg);
+console.log("Tổng lương NV hoạt động:", total);
+console.log("Index của NV id=3:", idx);
+console.log("Nhân viên có id=3:", empById);
+console.log("Sinh viên:", fullName, "- Thành phố:", city);
+console.log("Trạng thái tốt nghiệp:", graduated.status);
