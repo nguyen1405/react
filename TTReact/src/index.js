@@ -6,7 +6,7 @@ const student = {
 };
 
 const {fullName,id}=student
-const {city} = address
+const {city} = student.address
 const avg = scores.reduce((sum, score) => sum + score, 0) / scores.length;
 const graduated ={
     ...student,
