@@ -21,6 +21,7 @@ const employees = [
 ];
 const available = employees.filter(emp=> emp.active)
 const total = available.reduce((sum,emp)=> sum + emp.salary,0);
+const name = employees.find(emp=>emp.name === 'Bình')
 const sumTotal = employees
     .filter(emp=>emp.active)
     .reduce((sum, emp)=> sum+emp.salary,0);
@@ -36,3 +37,4 @@ console.log("Index của NV id=3:", idx);
 console.log("Nhân viên có id=3:", empById);
 console.log("Sinh viên:", fullName, "- Thành phố:", city);
 console.log("Trạng thái tốt nghiệp:", graduated.status);
+console.log(name);
