@@ -403,3 +403,85 @@ App
 
 ---
 > ⏱️ **Ước tính:** 3-4 ngày | 🎯 **Tiêu chí:** Tạo được trang Product Store không cần nhìn tutorial.
+nvm là gì ?
+Cách cài NVM khi gặp lỗi 'nvm' is not recognized
+1. Tải NVM
+
+Truy cập GitHub của nvm-windows:
+https://github.com/coreybutler/nvm-windows/releases
+
+Tải file:
+
+nvm-setup.exe
+2. Cài đặt NVM
+
+Chạy file nvm-setup.exe và làm theo hướng dẫn:
+
+Chọn thư mục cài NVM (có thể để mặc định)
+Chọn thư mục Node.js (ví dụ: C:\Program Files\nodejs)
+Nhấn Next → Install
+3. Khởi động lại VS Code
+
+Sau khi cài xong:
+
+Tắt VS Code
+Mở lại VS Code
+4. Kiểm tra NVM
+
+Mở Terminal trong VS Code và gõ:
+
+nvm -v
+
+Nếu hiện version → đã cài thành công
+
+5. Nếu vẫn lỗi → kiểm tra PATH
+
+Gõ:
+
+where nvm
+
+Nếu không ra đường dẫn → cần thêm PATH
+
+6. Thêm PATH thủ công
+
+Mở:
+
+Edit environment variables
+
+Thêm vào biến PATH:
+
+C:\Users\<YourUser>\AppData\Roaming\nvm
+C:\Program Files\nodejs
+
+Ví dụ:
+
+C:\Users\ADMIN\AppData\Roaming\nvm
+
+Sau đó:
+
+Save
+Restart máy
+7. Cài Node bằng NVM
+
+Sau khi NVM hoạt động:
+
+nvm install 18
+nvm use 18
+node -v
+
+Nếu hiện version Node → OK
+
+8. Lưu ý quan trọng
+Nếu đã cài Node trước đó → nên gỡ để tránh lỗi
+Nên dùng CMD hoặc PowerShell trong VS Code
+Không nên dùng Git Bash (dễ lỗi với nvm-windows)
+Tóm lại
+
+Quy trình:
+
+Tải nvm-setup.exe
+Cài đặt
+Restart VS Code
+Kiểm tra nvm -v
+Nếu lỗi → thêm PATH
+Dùng nvm install và nvm use
