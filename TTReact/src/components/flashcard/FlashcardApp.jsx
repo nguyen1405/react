@@ -2,8 +2,9 @@ import { useState } from "react";
 import Flashcard from "./Flashcard";
 import Navigation from "./Navigation";
 import Progress from "./Progress";
-import { flashcards as initialCards } from "../data/flashcards";
-import "./FlashcardApp.css";
+import { flashcards as initialCards } from "../../data/flashcards";
+import "../../css/FlashcardApp.css";
+
 
 function FlashcardApp() {
   const [cards, setCards] = useState(initialCards);
