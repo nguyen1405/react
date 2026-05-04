@@ -5,7 +5,7 @@ const student = {
   address: { city: "HCM", district: "Q1" }
 };
 
-const {fullName,id}=student
+const {fullName} = student
 const {city} = student.address
 const avg = student.scores.reduce((sum, score) => sum + score, 0) / student.scores.length;
 const graduated ={
@@ -22,7 +22,7 @@ const employees = [
 const available = employees.filter(emp=> emp.active)
 const total = available.reduce((sum,emp)=> sum + emp.salary,0);
 const name = employees.find(emp=>emp.name === 'Bình')
-const sumTotal = employees
+employees
     .filter(emp=>emp.active)
     .reduce((sum, emp)=> sum+emp.salary,0);
 const highSalaryNames = employees

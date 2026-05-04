@@ -1,4 +1,4 @@
-import '../css/ProductCard.css'
+import '../../css/ProductCard.css'
 
 const ProductCard = ({ name, price, category, rating, inStock, image }) => {
   return (
