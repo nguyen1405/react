@@ -20,10 +20,7 @@ const Home = () => {
     <div className="min-h-screen bg-slate-50">
       <section className="hero">
         <div className="hero-content">
-          <div className="hero-badge">
-            <Flame className="hero-badge-icon" />
-            <span className="hero-badge-text">Công nghệ mới nhất</span>
-          </div>
+          
           <h1 className="hero-title">Mua sắm tiện lợi giá tốt</h1>
           <p className="hero-description">
             Khám phá các sản phẩm công nghệ chất lượng cao với giá cả hợp lý

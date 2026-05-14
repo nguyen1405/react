@@ -103,7 +103,7 @@ const Inventory = () => {
                     )}
                   </div>
                   <p className="product-item-stock">
-                    Tồn kho: <span className={product.quantity > 0 ? 'stock-available' : 'stock-out'}>{product.quantity} sản phẩm</span>
+                    Tồn kho: <span className={product.quantity > 0 ? 'stock-available' : 'stock-out'}>Còn {product.quantity} sản phẩm</span>
                   </p>
                 </div>
                 <div className="product-item-actions">

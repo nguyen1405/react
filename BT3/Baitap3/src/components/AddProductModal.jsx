@@ -111,6 +111,7 @@ const AddProductModal = ({ isOpen, onClose, editProduct = null }) => {
               <option value="Phone">Phone</option>
               <option value="Tablet">Tablet</option>
               <option value="Accessories">Accessories</option>
+              <option value="Đồ ăn">Đồ ăn</option>
             </select>
           </div>
 
