@@ -157,3 +157,140 @@ formatPrice(price)       // Format giá sang VND (VD: 45,000,000đ)
 - `inStock = quantity > 0`
 - Trang Home hiển thị "Còn hàng" / "Hết hàng" dựa trên inStock
 - Trang Inventory hiển thị "Còn X sản phẩm" dựa trên quantity
+
+
+## 11. CSS Position
+
+Trong CSS, `position` dùng để xác định cách phần tử được định vị (đặt vị trí) trên trang web. Có 5 loại chính:
+
+### 1. `static` (mặc định)
+
+```css
+position: static;
+```
+
+- Đây là trạng thái mặc định của mọi thẻ HTML.
+- Phần tử nằm theo luồng bình thường của trang.
+- `top`, `left`, `right`, `bottom` **không hoạt động**.
+
+```css
+.box {
+  position: static;
+  top: 20px; /* KHÔNG có tác dụng */
+}
+```
+
+📌 Dùng khi không cần định vị đặc biệt.
+
+---
+
+### 2. `relative`
+
+```css
+position: relative;
+```
+
+- Phần tử vẫn giữ vị trí gốc trong layout.
+- Nhưng có thể dịch chuyển bằng: `top`, `left`, `right`, `bottom`
+
+```css
+.box {
+  position: relative;
+  top: 20px;
+  left: 30px;
+}
+```
+
+➡ Nghĩa là: dịch xuống 20px, dịch sang phải 30px.
+
+📌 Đặc điểm quan trọng: vị trí cũ vẫn được giữ chỗ.
+
+📌 Thường dùng: làm mốc cho `absolute`.
+
+---
+
+### 3. `absolute`
+
+```css
+position: absolute;
+```
+
+- Phần tử bị đưa ra khỏi luồng bình thường.
+- **Không còn chiếm chỗ nữa.**
+- Định vị dựa trên:
+  - Phần tử cha gần nhất có `position` khác `static`
+  - Nếu không có → dựa vào `body`
+
+```css
+.parent {
+  position: relative;
+}
+
+.child {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+```
+
+➡ `.child` sẽ nằm góc phải trên của `.parent`.
+
+📌 Thường dùng: badge, icon, popup, menu, overlay.
+
+---
+
+### 4. `fixed`
+
+```css
+position: fixed;
+```
+
+- Giống `absolute`
+- Nhưng **bám theo màn hình trình duyệt**.
+- Cuộn trang vẫn đứng yên.
+
+```css
+.header {
+  position: fixed;
+  top: 0;
+}
+```
+
+➡ Header luôn nằm trên cùng dù scroll.
+
+📌 Thường dùng: navbar, nút chat, nút back to top.
+
+---
+
+### 5. `sticky`
+
+```css
+position: sticky;
+```
+
+- Kết hợp giữa `relative` và `fixed`.
+- Bình thường như `relative`
+- Khi scroll tới vị trí chỉ định → chuyển thành `fixed`
+
+```css
+.menu {
+  position: sticky;
+  top: 0;
+}
+```
+
+➡ Khi cuộn tới menu: menu sẽ dính trên đầu trang.
+
+📌 Thường dùng: menu dính, sidebar dính, tiêu đề bảng.
+
+---
+
+### So sánh nhanh
+
+| Loại | Chiếm chỗ? | Bám theo gì? | Scroll |
+|------|-----------|--------------|--------|
+| `static` | ✅ | luồng thường | cuộn bình thường |
+| `relative` | ✅ | vị trí gốc của nó | cuộn |
+| `absolute` | ❌ | cha gần nhất có position | cuộn |
+| `fixed` | ❌ | màn hình trình duyệt | đứng yên |
+| `sticky` | ✅ | cha + màn hình | dính khi cuộn |
