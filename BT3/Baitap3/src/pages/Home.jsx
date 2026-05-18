@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, Flame, Edit, Trash2 } from 'lucide-react';
+import { ArrowRight, Flame, Edit, Trash2, ShoppingCart } from 'lucide-react';
 import { useProduct } from '../context/ProductContext';
+import { useCart } from '../context/CartContext';
 import '../css/Home.css';
 
 const Home = () => {
   const { products, deleteProduct } = useProduct();
+  const { addToCart } = useCart();
 
   const handleDelete = (id, name) => {
     if (window.confirm(`Bạn có chắc muốn xóa sản phẩm "${name}"?`)) {
@@ -72,6 +74,13 @@ const Home = () => {
                       <div className="product-item-footer">
                         <div className="product-item-price-home">{formatPrice(product.price)}</div>
                         <div className="product-item-actions-home">
+                          <button
+                            onClick={() => addToCart(product)}
+                            disabled={!product.inStock}
+                            className="action-btn-home cart"
+                          >
+                            <ShoppingCart className="w-4 h-4" />
+                          </button>
                           <button
                             onClick={() => handleDelete(product.id, product.name)}
                             className="action-btn-home delete"

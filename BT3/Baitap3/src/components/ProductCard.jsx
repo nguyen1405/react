@@ -1,10 +1,10 @@
 import { ShoppingCart, Star, CheckCircle, XCircle } from 'lucide-react';
 import { useState } from 'react';
-import { useProduct } from '../context/ProductContext';
+import { useCart } from '../context/CartContext';
 import '../css/ProductCard.css';
 
 const ProductCard = ({ product }) => {
-  const { addToCart } = useProduct();
+  const { addToCart } = useCart();
   const [isAdded, setIsAdded] = useState(false);
 
   const handleAddToCart = () => {

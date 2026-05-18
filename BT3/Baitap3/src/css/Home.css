@@ -272,6 +272,21 @@
   background: #fee2e2;
 }
 
+.action-btn-home.cart {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.action-btn-home.cart:hover {
+  background: #dbeafe;
+}
+
+.action-btn-home.cart:disabled {
+  background: #f1f5f9;
+  color: #94a3b8;
+  cursor: not-allowed;
+}
+
 .modal-overlay {
   position: fixed;
   inset: 0;
