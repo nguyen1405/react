@@ -29,7 +29,7 @@ export const ProductProvider = ({ children }) => {
       quantity: product.quantity || 0,
       inStock: product.quantity > 0,
     };
-    setProducts([...products, newProduct]);
+    setProducts(prev => [newProduct, ...prev]);
   };
 
   const updateProduct = (id, updatedProduct) => {
