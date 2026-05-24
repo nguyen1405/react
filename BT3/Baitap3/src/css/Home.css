@@ -181,9 +181,10 @@
 .product-item-header {
   display: flex;
   align-items: center;
-  margin-left: auto;
+  margin-right: auto;
   gap: 0.5rem;
   margin-bottom: 0.5rem;
+  justify-content: space-between
 }
 
 .product-category-badge {
@@ -225,7 +226,7 @@
   margin-bottom: 0.75rem;
   overflow: hidden;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
 }
 
