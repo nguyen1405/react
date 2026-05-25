@@ -1,5 +1,5 @@
 import Header from './components/layout/Header'
-import FlashcardApp from './components/flashcard/FlashcardApp'
+import PracticeWeek4 from './components/practice/PracticeWeek4'
 
 import './App.css'
 
@@ -8,7 +8,7 @@ function App() {
     <div className="app">
       <Header />
       <main className="main-content">
-        <FlashcardApp />
+        <PracticeWeek4 />
       </main>
     </div>
   )
