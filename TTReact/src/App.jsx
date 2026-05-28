@@ -1,16 +1,26 @@
-import Header from './components/layout/Header'
-import PracticeWeek4 from './components/practice/PracticeWeek4'
+import { Routes, Route } from 'react-router-dom'
+import Layout from './components/layout/Layout'
+import HomePage from './pages/HomePage'
+import ProductsPage from './pages/ProductsPage'
+import ProductDetailPage from './pages/ProductDetailPage'
+import CartPage from './pages/CartPage'
+import AboutPage from './pages/AboutPage'
+import NotFoundPage from './pages/NotFoundPage'
 
 import './App.css'
 
 function App() {
   return (
-    <div className="app">
-      <Header />
-      <main className="main-content">
-        <PracticeWeek4 />
-      </main>
-    </div>
+    <Routes>
+      <Route path='/' element={<Layout />}>
+        <Route index element={<HomePage />} />
+        <Route path='products' element={<ProductsPage />} />
+        <Route path='products/:id' element={<ProductDetailPage />} />
+        <Route path='cart' element={<CartPage />} />
+        <Route path='about' element={<AboutPage />} />
+      </Route>
+      <Route path='*' element={<NotFoundPage />} />
+    </Routes>
   )
 }
 
