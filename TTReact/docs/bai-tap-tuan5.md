@@ -21,7 +21,7 @@
 ### Route structure
 ```
 /                   -> HomePage
-/products           -> ProductsPage  
+/products           -> ProductsPage
 /products/:id       -> ProductDetailPage
 /cart               -> CartPage
 /about              -> AboutPage
@@ -41,3 +41,4 @@ npm run dev
 - Click san pham -> chuyen sang trang chi tiet
 - Nut "Quay lai danh sach" hoat dong
 - Trang 404 hien thi khi nhap URL sai
+-âsdasdas
