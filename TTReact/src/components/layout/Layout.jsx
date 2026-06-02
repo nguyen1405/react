@@ -1,6 +1,10 @@
-﻿import { Outlet, NavLink } from 'react-router-dom'
+import { Outlet, NavLink } from 'react-router-dom'
+import { useCart } from '../../context/CartContext'
 
 const Layout = () => {
+  const { getCartCount } = useCart()
+  const cartCount = getCartCount()
+
   return (
     <div className='app-layout'>
       <header className='header'>
@@ -12,25 +16,26 @@ const Layout = () => {
             to='/' 
             className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}
           >
-            Trang chu
+            Trang chủ
           </NavLink>
           <NavLink 
             to='/products' 
             className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}
           >
-            San pham
+            Sản phẩm
           </NavLink>
           <NavLink 
             to='/cart' 
             className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}
           >
-            Gio hang
+            Giỏ hàng
+            {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
           </NavLink>
           <NavLink 
             to='/about' 
             className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}
           >
-            Gioi thieu
+            Giới thiệu
           </NavLink>
         </nav>
       </header>
@@ -40,7 +45,7 @@ const Layout = () => {
       </main>
       
       <footer className='footer'>
-        <p>&copy; 2026 Shop Gallery. All rights reserved.</p>
+        <p>&copy; 2026 Shop Gallery. Tất cả quyền được bảo lưu.</p>
       </footer>
     </div>
   )
