@@ -205,10 +205,12 @@
   align-items: center;
   justify-content: center;
   margin-bottom: var(--space-4);
+  overflow: hidden;
 }
 
 .product-card-image img {
   max-height: 100%;
+  max-width: 100%;
   object-fit: contain;
 }
 
