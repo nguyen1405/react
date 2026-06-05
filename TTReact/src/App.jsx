@@ -5,6 +5,7 @@ import ProductsPage from './pages/ProductsPage'
 import ProductDetailPage from './pages/ProductDetailPage'
 import CartPage from './pages/CartPage'
 import AboutPage from './pages/AboutPage'
+import PricingPage from './pages/PricingPage'
 import NotFoundPage from './pages/NotFoundPage'
 
 import './App.css'
@@ -17,6 +18,7 @@ function App() {
         <Route path='products' element={<ProductsPage />} />
         <Route path='products/:id' element={<ProductDetailPage />} />
         <Route path='cart' element={<CartPage />} />
+        <Route path='pricing' element={<PricingPage />} />
         <Route path='about' element={<AboutPage />} />
       </Route>
       <Route path='*' element={<NotFoundPage />} />

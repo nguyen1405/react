@@ -1,51 +1,19 @@
-:root {
-  --color-bg: #ffffff;
-  --color-surface: #f8f9fa;
-  --color-surface-raised: #f1f3f5;
-  --color-border: rgba(0, 0, 0, 0.08);
-  --color-text-primary: #111827;
-  --color-text-secondary: #4b5563;
-  --color-text-muted: #9ca3af;
-  --color-accent: #2563eb;
-  --color-accent-hover: #1d4ed8;
+@import "tailwindcss";
+
+@theme {
+  --color-primary-50: #eff6ff;
+  --color-primary-100: #dbeafe;
+  --color-primary-200: #bfdbfe;
+  --color-primary-500: #3b82f6;
+  --color-primary-600: #2563eb;
+  --color-primary-700: #1d4ed8;
+
   --color-success: #16a34a;
   --color-warning: #d97706;
   --color-error: #dc2626;
 
-  --font-body: 'DM Sans', sans-serif;
-  --font-display: 'Playfair Display', serif;
-
-  --text-xs: 0.75rem;
-  --text-sm: 0.875rem;
-  --text-base: 1rem;
-  --text-lg: 1.125rem;
-  --text-xl: 1.25rem;
-  --text-2xl: 1.5rem;
-  --text-3xl: 1.875rem;
-  --text-4xl: 2.25rem;
-  --text-5xl: 3rem;
-
-  --space-1: 0.25rem;
-  --space-2: 0.5rem;
-  --space-3: 0.75rem;
-  --space-4: 1rem;
-  --space-6: 1.5rem;
-  --space-8: 2rem;
-  --space-12: 3rem;
-  --space-16: 4rem;
-
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-full: 9999px;
-
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
-  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
-
-  font-family: var(--font-body);
-  color: var(--color-text-primary);
-  background-color: var(--color-bg);
+  --font-sans: "Inter", "DM Sans", sans-serif;
+  --font-display: "Playfair Display", serif;
 }
 
 * {
@@ -56,14 +24,7 @@
 
 body {
   margin: 0;
-}
-
-h1, h2, h3 {
-  font-family: var(--font-display);
-  color: var(--color-text-primary);
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
