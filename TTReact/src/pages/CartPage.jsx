@@ -1,8 +1,23 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
+import PaymentModal from '../components/payment/PaymentModal'
 
 const CartPage = () => {
   const { cartItems, removeFromCart, updateQuantity, clearCart, getCartTotal } = useCart()
+  const [showPaymentModal, setShowPaymentModal] = useState(false)
+
+  const handlePaymentConfirm = (method) => {
+    const methodLabels = {
+      cod: 'Thanh toán khi nhận hàng',
+      bank: 'Chuyển khoản ngân hàng',
+      momo: 'Ví MoMo',
+      card: 'Thẻ tín dụng / Ghi nợ',
+    }
+    alert(`Đặt hàng thành công!\nHình thức thanh toán: ${methodLabels[method]}\nTổng: $${getCartTotal().toFixed(2)}`)
+    clearCart()
+    setShowPaymentModal(false)
+  }
 
   if (cartItems.length === 0) {
     return (
@@ -74,7 +89,9 @@ const CartPage = () => {
             <span>Tổng cộng:</span>
             <span>${getCartTotal().toFixed(2)}</span>
           </div>
-          <button className="btn-checkout">Thanh toán</button>
+          <button className="btn-checkout" onClick={() => setShowPaymentModal(true)}>
+            Thanh toán
+          </button>
           <button className="btn-clear" onClick={clearCart}>
             Xóa tất cả
           </button>
@@ -86,6 +103,13 @@ const CartPage = () => {
           ← Tiếp tục mua sắm
         </Link>
       </div>
+
+      <PaymentModal
+        isOpen={showPaymentModal}
+        onClose={() => setShowPaymentModal(false)}
+        onConfirm={handlePaymentConfirm}
+        total={getCartTotal()}
+      />
     </div>
   )
 }
