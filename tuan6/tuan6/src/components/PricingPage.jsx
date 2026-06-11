@@ -71,10 +71,10 @@ const PricingPage = () => {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 dark:text-white tracking-tight">
             Bảng giá đơn giản, minh bạch
           </h2>
-          <p className="mt-4 text-lg text-gray-500 max-w-2xl mx-auto">
+          <p className="mt-4 text-lg text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
             Chọn gói phù hợp với nhu cầu của bạn. Bắt đầu miễn phí, nâng cấp
             bất cứ lúc nào.
           </p>
@@ -85,7 +85,7 @@ const PricingPage = () => {
           <span
             className={clsx(
               "text-sm font-medium transition-colors",
-              !isYearly ? "text-gray-900" : "text-gray-400"
+              !isYearly ? "text-gray-900 dark:text-white" : "text-gray-400 dark:text-gray-500"
             )}
           >
             Tháng
@@ -93,8 +93,8 @@ const PricingPage = () => {
           <button
             onClick={() => setIsYearly(!isYearly)}
             className={clsx(
-              "relative inline-flex h-7 w-14 items-center rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2",
-              isYearly ? "bg-primary-600" : "bg-gray-300"
+              "relative inline-flex h-7 w-14 items-center rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900",
+              isYearly ? "bg-primary-600" : "bg-gray-300 dark:bg-gray-600"
             )}
             role="switch"
             aria-checked={isYearly}
@@ -110,13 +110,13 @@ const PricingPage = () => {
           <span
             className={clsx(
               "text-sm font-medium transition-colors",
-              isYearly ? "text-gray-900" : "text-gray-400"
+              isYearly ? "text-gray-900 dark:text-white" : "text-gray-400 dark:text-gray-500"
             )}
           >
             Năm
           </span>
           {isYearly && (
-            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-green-100 text-green-700">
+            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300">
               Tiết kiệm 20%
             </span>
           )}
@@ -133,7 +133,7 @@ const PricingPage = () => {
                 hover
                 padding="none"
                 className={clsx(
-                  "relative flex flex-col transition-all duration-300",
+                  "relative flex flex-col transition-all duration-300 dark:bg-gray-800 dark:border-gray-700",
                   plan.popular
                     ? "border-2 border-primary-500 shadow-xl md:scale-105 z-10"
                     : "border-gray-200"
@@ -152,13 +152,13 @@ const PricingPage = () => {
                   {/* Plan Name */}
                   <h3
                     className={clsx(
-                      "text-lg font-semibold",
-                      plan.popular ? "text-primary-600" : "text-gray-900"
+                      "text-2xl font-bold",
+                      plan.popular ? "text-primary-600 dark:text-primary-400" : "text-gray-900 dark:text-white"
                     )}
                   >
                     {plan.name}
                   </h3>
-                  <p className="mt-1 text-sm text-gray-500">
+                  <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
                     {plan.description}
                   </p>
 
@@ -166,24 +166,24 @@ const PricingPage = () => {
                   <div className="mt-6 mb-6">
                     <div className="flex items-baseline gap-1">
                       {price === 0 ? (
-                        <span className="text-4xl font-extrabold text-gray-900">
+                        <span className="text-4xl font-extrabold text-gray-900 dark:text-white">
                           Miễn phí
                         </span>
                       ) : (
                         <>
-                          <span className="text-4xl font-extrabold text-gray-900 tabular-nums">
+                          <span className="text-4xl font-extrabold text-gray-900 dark:text-white tabular-nums">
                             {formatPrice(price)}
                           </span>
-                          <span className="text-sm font-medium text-gray-500">
+                          <span className="text-sm font-medium text-gray-500 dark:text-gray-400">
                             đ/tháng
                           </span>
                         </>
                       )}
                     </div>
                     {isYearly && price > 0 && (
-                      <p className="mt-1 text-xs text-gray-400">
+                      <p className="mt-1 text-xs text-gray-400 dark:text-gray-500">
                         Thanh toán{" "}
-                        <span className="font-semibold text-gray-600">
+                        <span className="font-semibold text-gray-600 dark:text-gray-300">
                           {formatPrice(price * 12)}
                         </span>
                         đ/năm
@@ -201,18 +201,18 @@ const PricingPage = () => {
 
                   {/* Features */}
                   <div className="space-y-3 flex-1">
-                    <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                    <p className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider">
                       Bao gồm
                     </p>
                     <ul className="space-y-2.5">
                       {plan.features.map((feature) => (
                         <li
                           key={feature}
-                          className="flex items-start gap-2.5 text-sm text-gray-700"
+                          className="flex items-start gap-2.5 text-sm text-gray-700 dark:text-gray-300"
                         >
-                          <span className="mt-0.5 flex-shrink-0 w-4 h-4 flex items-center justify-center rounded-full bg-green-100">
+                          <span className="mt-0.5 flex-shrink-0 w-4 h-4 flex items-center justify-center rounded-full bg-green-100 dark:bg-green-900/40">
                             <svg
-                              className="w-2.5 h-2.5 text-green-600"
+                              className="w-2.5 h-2.5 text-green-600 dark:text-green-400"
                               fill="currentColor"
                               viewBox="0 0 20 20"
                             >
@@ -231,18 +231,18 @@ const PricingPage = () => {
                     {/* Limitations */}
                     {plan.limitations.length > 0 && (
                       <>
-                        <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider pt-3">
+                        <p className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider pt-3">
                           Không bao gồm
                         </p>
                         <ul className="space-y-2.5">
                           {plan.limitations.map((limitation) => (
                             <li
                               key={limitation}
-                              className="flex items-start gap-2.5 text-sm text-gray-400"
+                              className="flex items-start gap-2.5 text-sm text-gray-400 dark:text-gray-500"
                             >
-                              <span className="mt-0.5 flex-shrink-0 w-4 h-4 flex items-center justify-center rounded-full bg-red-50">
+                              <span className="mt-0.5 flex-shrink-0 w-4 h-4 flex items-center justify-center rounded-full bg-red-50 dark:bg-red-900/30">
                                 <svg
-                                  className="w-2.5 h-2.5 text-red-400"
+                                  className="w-2.5 h-2.5 text-red-400 dark:text-red-400"
                                   fill="currentColor"
                                   viewBox="0 0 20 20"
                                 >

@@ -17,8 +17,8 @@ const Card = ({
   return (
     <div
       className={clsx(
-        "bg-white rounded-2xl border border-gray-200 shadow-md",
-        hover && "transition-shadow duration-300 hover:shadow-xl",
+        "bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-md dark:shadow-gray-900/30",
+        hover && "transition-shadow duration-300 hover:shadow-xl dark:hover:shadow-gray-900/50",
         paddingClasses[padding],
         className
       )}
