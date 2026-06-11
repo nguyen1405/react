@@ -1,14 +1,14 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 
-const useFetch = (fetchFn, deps = []) => {
+const useFetch = (fetchFn) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const execute = useCallback(async (...args) => {
+  const refetch = useCallback(async (...args) => {
+    setLoading(true);
+    setError(null);
     try {
-      setLoading(true);
-      setError(null);
       const result = await fetchFn(...args);
       setData(result);
       return result;
@@ -18,13 +18,9 @@ const useFetch = (fetchFn, deps = []) => {
     } finally {
       setLoading(false);
     }
-  }, deps);
+  }, [fetchFn]);
 
-  useEffect(() => {
-    execute();
-  }, [execute]);
-
-  return { data, loading, error, refetch: execute };
+  return { data, loading, error, refetch };
 };
 
 export default useFetch;
