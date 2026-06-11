@@ -2,19 +2,21 @@ import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import LandingPage from "./pages/LandingPage";
 import ProductGallery from "./pages/ProductGallery";
+import ProductDetail from "./pages/ProductDetail";
 import CartPage from "./pages/CartPage";
 import LoginPage from "./pages/LoginPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 transition-colors duration-300">
+    <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-950 transition-colors duration-300">
       <Header />
 
-      <main id="main-content">
+      <main id="main-content" className="flex-1">
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/shop" element={<ProductGallery />} />
+          <Route path="/shop/:id" element={<ProductDetail />} />
           <Route path="/login" element={<LoginPage />} />
           <Route
             path="/cart"
