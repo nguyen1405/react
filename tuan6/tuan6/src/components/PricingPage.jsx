@@ -19,6 +19,21 @@ const plans = [
     popular: false,
   },
   {
+    name: "Starter",
+    monthlyPrice: 49000,
+    description: "Cho người dùng cá nhân có nhu cầu cao hơn",
+    features: [
+      "10.000 ký tự/ngày",
+      "5 giọng đọc",
+      "Tốc độ cao",
+      "Tải MP3",
+      "Hỗ trợ email",
+    ],
+    limitations: ["Chưa có API"],
+    cta: "Đăng ký ngay",
+    popular: false,
+  },
+  {
     name: "Pro",
     monthlyPrice: 199000,
     description: "Dành cho content creator và team nhỏ",
@@ -33,6 +48,23 @@ const plans = [
     limitations: [],
     cta: "Dùng thử 7 ngày miễn phí",
     popular: true,
+  },
+  {
+    name: "Team",
+    monthlyPrice: 499000,
+    description: "Cho nhóm làm việc chuyên nghiệp",
+    features: [
+      "200.000 ký tự/ngày",
+      "20 giọng đọc",
+      "Tốc độ ưu tiên",
+      "API đầy đủ",
+      "Custom voice",
+      "Quản lý team",
+      "Hỗ trợ 24/7",
+    ],
+    limitations: [],
+    cta: "Dùng thử 14 ngày",
+    popular: false,
   },
   {
     name: "Enterprise",
@@ -123,7 +155,7 @@ const PricingPage = () => {
         </div>
 
         {/* Pricing Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 lg:gap-8 items-start">
           {plans.map((plan) => {
             const price = getPrice(plan.monthlyPrice);
 
@@ -143,22 +175,18 @@ const PricingPage = () => {
                 {plan.popular && (
                   <div className="absolute -top-4 left-1/2 -translate-x-1/2">
                     <span className="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-bold bg-primary-600 text-white shadow-lg whitespace-nowrap">
-                      🔥 PHỔ BIẾN NHẤT
+                      🔥 Phổ biến nhất
                     </span>
                   </div>
                 )}
 
-                <div className="p-8 flex flex-col flex-1">
-                  {/* Plan Name */}
-                  <h3
-                    className={clsx(
-                      "text-2xl font-bold",
-                      plan.popular ? "text-primary-600 dark:text-primary-400" : "text-gray-900 dark:text-white"
-                    )}
-                  >
+                {/* Content */}
+                <div className="p-6 lg:p-8 flex flex-col h-full">
+                  {/* Plan Name & Description */}
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white">
                     {plan.name}
                   </h3>
-                  <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                  <p className="mt-1 text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
                     {plan.description}
                   </p>
 
