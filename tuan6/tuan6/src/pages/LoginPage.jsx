@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import Button from "../components/ui/Button";
@@ -14,6 +14,13 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
+
+  // ✅ useRef: Auto focus vào email input khi mount
+  const emailInputRef = useRef(null);
+
+  useEffect(() => {
+    emailInputRef.current?.focus();
+  }, []);
 
   // Already logged in → redirect
   if (isLoggedIn) {
@@ -108,6 +115,7 @@ const LoginPage = () => {
               Email
             </label>
             <input
+              ref={emailInputRef}
               id="email"
               name="email"
               type="email"

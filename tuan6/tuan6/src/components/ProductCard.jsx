@@ -1,3 +1,4 @@
+import { memo, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { useCart } from "../contexts/CartContext";
@@ -5,20 +6,24 @@ import { useCart } from "../contexts/CartContext";
 const formatPrice = (price) =>
   price.toLocaleString("vi-VN") + "đ";
 
-const ProductCard = ({ product }) => {
+const ProductCard = memo(({ product }) => {
   const { isLoggedIn } = useAuth();
   const { addItem } = useCart();
   const navigate = useNavigate();
 
-  const handleAddToCart = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (!isLoggedIn) {
-      navigate("/login");
-      return;
-    }
-    addItem(product);
-  };
+  // ✅ useCallback: Giữ reference ổn định, không tạo lại function mỗi lần render
+  const handleAddToCart = useCallback(
+    (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (!isLoggedIn) {
+        navigate("/login");
+        return;
+      }
+      addItem(product);
+    },
+    [isLoggedIn, addItem, navigate, product]
+  );
 
   return (
     <Link
@@ -74,6 +79,8 @@ const ProductCard = ({ product }) => {
       </div>
     </Link>
   );
-};
+});
+
+ProductCard.displayName = "ProductCard";
 
 export default ProductCard;
