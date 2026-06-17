@@ -42,6 +42,8 @@ const LoginPage = () => {
       newErrors.password = "Mật khẩu không được để trống";
     } else if (form.password.length < 6) {
       newErrors.password = "Mật khẩu phải có ít nhất 6 ký tự";
+    } else if (!/[A-Z]/.test(form.password)) {
+      newErrors.password = "Mật khẩu phải có ít nhất 1 chữ viết hoa";
     }
 
     setErrors(newErrors);
@@ -175,7 +177,7 @@ const LoginPage = () => {
           <div className="px-4 py-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl text-xs text-blue-600 dark:text-blue-400">
             <p className="font-semibold mb-0.5">Tài khoản demo:</p>
             <p>Email: <code className="font-mono bg-blue-100 dark:bg-blue-900/40 px-1 rounded">admin@test.com</code></p>
-            <p>Mật khẩu: <code className="font-mono bg-blue-100 dark:bg-blue-900/40 px-1 rounded">123456</code></p>
+            <p>Mật khẩu: <code className="font-mono bg-blue-100 dark:bg-blue-900/40 px-1 rounded">Admin123</code> (phải có chữ hoa)</p>
           </div>
 
           {/* Submit */}

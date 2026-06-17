@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }) => {
 
     if (
       credentials.email === "admin@test.com" &&
-      credentials.password === "123456"
+      credentials.password === "Admin123"
     ) {
       const userData = { name: "Admin", email: credentials.email };
       const token = "fake-jwt-token-" + Date.now();

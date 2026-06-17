@@ -59,7 +59,7 @@ const LandingPage = () => (
               <Link to="/shop">
                 <Button
                   size="lg"
-                  className="bg-white text-primary-700 hover:bg-primary-50 shadow-lg"
+                  className="bg-blue-600 text-white hover:bg-blue-700 shadow-lg"
                 >
                   🚀 Khám phá ngay
                 </Button>
