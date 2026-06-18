@@ -7,7 +7,7 @@ import { useProducts } from '../contexts/ProductContext';
 import useDebounce from '../hooks/useDebounce';
 import usePagination from '../hooks/usePagination';
 
-const ITEMS_PER_PAGE = 4;
+const ITEMS_PER_PAGE = 8;
 
 const ProductGallery = () => {
   const { isLoggedIn } = useAuth();
