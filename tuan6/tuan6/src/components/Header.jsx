@@ -6,6 +6,7 @@ import { useAuth } from "../contexts/AuthContext";
 import { useCart } from "../contexts/CartContext";
 
 const navLinks = [
+  { label: "Quan ly", to: "/admin/products" },
   { label: "Trang chủ", to: "/" },
   { label: "Cửa hàng", to: "/shop" },
 ];
