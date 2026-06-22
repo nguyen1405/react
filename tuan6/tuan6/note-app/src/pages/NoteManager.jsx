@@ -4,7 +4,6 @@ import { noteService } from "../services/noteService"
 
 const STORAGE_KEY = "noteapp_notes"
 
-// Load notes from localStorage
 const loadNotesFromStorage = () => {
   try {
     const stored = localStorage.getItem(STORAGE_KEY)
@@ -14,7 +13,6 @@ const loadNotesFromStorage = () => {
   }
 }
 
-// Save notes to localStorage
 const saveNotesToStorage = (notes) => {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(notes))
@@ -53,16 +51,14 @@ export default function NoteManager() {
   const [newTitle, setNewTitle] = useState("")
   const [newBody, setNewBody] = useState("")
 
-  // Initial data from localStorage
   const initialNotes = loadNotesFromStorage()
 
-  const { data: notes = [], isLoading, isError, error, refetch } = useQuery({
+  const { data: notes = [], isLoading, isError, error } = useQuery({
     queryKey: ["notes"],
     queryFn: () => noteService.getAll(),
     initialData: initialNotes,
   })
 
-  // Sync to localStorage when notes change
   useEffect(() => {
     if (notes && notes.length > 0) {
       saveNotesToStorage(notes)
@@ -86,14 +82,11 @@ export default function NoteManager() {
         ...old,
       ])
       saveNotesToStorage(queryClient.getQueryData(["notes"]))
-      return { previousNotes, tempId }
+      return { previousNotes }
     },
     onError: (err, newNote, context) => {
       queryClient.setQueryData(["notes"], context.previousNotes)
       saveNotesToStorage(context.previousNotes)
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["notes"] })
     },
   })
 
@@ -111,9 +104,6 @@ export default function NoteManager() {
     onError: (err, id, context) => {
       queryClient.setQueryData(["notes"], context.previousNotes)
       saveNotesToStorage(context.previousNotes)
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["notes"] })
     },
   })
 
@@ -170,11 +160,16 @@ export default function NoteManager() {
     }
   }
 
+  const refreshFromAPI = async () => {
+    const data = await noteService.getAll()
+    queryClient.setQueryData(["notes"], data)
+    saveNotesToStorage(data)
+  }
+
   const clearAll = () => {
     if (window.confirm("Bạn có muốn xóa tất cả ghi chú?")) {
       queryClient.setQueryData(["notes"], [])
       saveNotesToStorage([])
-      queryClient.invalidateQueries({ queryKey: ["notes"] })
     }
   }
 
@@ -199,7 +194,7 @@ export default function NoteManager() {
             <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">{notes.length} ghi chú (lưu localStorage)</p>
           </div>
           <div className="flex gap-2">
-            <Button variant="secondary" onClick={() => refetch()}>Làm mới API</Button>
+            <Button variant="secondary" onClick={refreshFromAPI}>Tải lại từ API</Button>
             <Button variant="danger" onClick={clearAll}>Xóa tất cả</Button>
           </div>
         </div>
@@ -244,7 +239,7 @@ export default function NoteManager() {
           />
         </div>
 
-        {/* Notes List with Inline Edit */}
+        {/* Notes List */}
         <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
           {filteredNotes.length === 0 ? (
             <div className="text-center py-20 text-gray-400 dark:text-gray-500">
@@ -255,7 +250,6 @@ export default function NoteManager() {
               {filteredNotes.map((note) => (
                 <div key={note.id} className="p-5 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
                   {editingId === note.id ? (
-                    /* Inline Edit Form */
                     <div className="space-y-3">
                       <input
                         type="text"
@@ -278,7 +272,6 @@ export default function NoteManager() {
                       </div>
                     </div>
                   ) : (
-                    /* Note Display + Click to Edit */
                     <div className="flex items-start justify-between gap-4 cursor-pointer" onClick={() => startEdit(note)}>
                       <div className="flex-1 min-w-0">
                         <h3 className="font-semibold text-gray-900 dark:text-white truncate">{note.title}</h3>
