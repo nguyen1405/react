@@ -50,6 +50,7 @@ export default function NoteManager() {
   const [editBody, setEditBody] = useState("")
   const [newTitle, setNewTitle] = useState("")
   const [newBody, setNewBody] = useState("")
+  const [apiWarning, setApiWarning] = useState(false)
 
   const initialNotes = loadNotesFromStorage()
 
@@ -160,6 +161,20 @@ export default function NoteManager() {
     }
   }
 
+  const refreshFromAPI = () => {
+    if (apiWarning) {
+      // Second click - actually refresh
+      noteService.getAll().then((data) => {
+        queryClient.setQueryData(["notes"], data)
+        saveNotesToStorage(data)
+        setApiWarning(false)
+      })
+    } else {
+      // First click - show warning
+      setApiWarning(true)
+      setTimeout(() => setApiWarning(false), 3000)
+    }
+  }
 
   const clearAll = () => {
     if (window.confirm("Bạn có muốn xóa tất cả ghi chú?")) {
@@ -189,7 +204,9 @@ export default function NoteManager() {
             <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">{notes.length} ghi chú (lưu localStorage)</p>
           </div>
           <div className="flex gap-2">
-            
+            <Button variant={apiWarning ? "danger" : "secondary"} onClick={refreshFromAPI}>
+              {apiWarning ? "Xác nhận tải lại?" : "Tải lại từ API"}
+            </Button>
             <Button variant="danger" onClick={clearAll}>Xóa tất cả</Button>
           </div>
         </div>
