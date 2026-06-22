@@ -1,6 +1,27 @@
-import { useState, useMemo } from "react"
+import { useState, useMemo, useEffect } from "react"
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
 import { noteService } from "../services/noteService"
+
+const STORAGE_KEY = "noteapp_notes"
+
+// Load notes from localStorage
+const loadNotesFromStorage = () => {
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY)
+    return stored ? JSON.parse(stored) : null
+  } catch {
+    return null
+  }
+}
+
+// Save notes to localStorage
+const saveNotesToStorage = (notes) => {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(notes))
+  } catch (e) {
+    console.error("Failed to save to localStorage:", e)
+  }
+}
 
 const Button = ({ variant = "primary", size = "md", className = "", children, ...props }) => {
   const base = "inline-flex items-center justify-center font-semibold rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2"
@@ -32,10 +53,21 @@ export default function NoteManager() {
   const [newTitle, setNewTitle] = useState("")
   const [newBody, setNewBody] = useState("")
 
+  // Initial data from localStorage
+  const initialNotes = loadNotesFromStorage()
+
   const { data: notes = [], isLoading, isError, error, refetch } = useQuery({
     queryKey: ["notes"],
     queryFn: () => noteService.getAll(),
+    initialData: initialNotes,
   })
+
+  // Sync to localStorage when notes change
+  useEffect(() => {
+    if (notes && notes.length > 0) {
+      saveNotesToStorage(notes)
+    }
+  }, [notes])
 
   const filteredNotes = useMemo(() => {
     if (!search.trim()) return notes
@@ -53,10 +85,12 @@ export default function NoteManager() {
         { ...newNote, id: tempId },
         ...old,
       ])
+      saveNotesToStorage(queryClient.getQueryData(["notes"]))
       return { previousNotes, tempId }
     },
     onError: (err, newNote, context) => {
       queryClient.setQueryData(["notes"], context.previousNotes)
+      saveNotesToStorage(context.previousNotes)
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ["notes"] })
@@ -71,10 +105,12 @@ export default function NoteManager() {
       queryClient.setQueryData(["notes"], (old = []) =>
         old.filter((note) => note.id !== id)
       )
+      saveNotesToStorage(queryClient.getQueryData(["notes"]))
       return { previousNotes }
     },
     onError: (err, id, context) => {
       queryClient.setQueryData(["notes"], context.previousNotes)
+      saveNotesToStorage(context.previousNotes)
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ["notes"] })
@@ -89,10 +125,12 @@ export default function NoteManager() {
       queryClient.setQueryData(["notes"], (old = []) =>
         old.map((note) => (note.id === id ? { ...note, ...data } : note))
       )
+      saveNotesToStorage(queryClient.getQueryData(["notes"]))
       return { previousNotes }
     },
     onError: (err, vars, context) => {
       queryClient.setQueryData(["notes"], context.previousNotes)
+      saveNotesToStorage(context.previousNotes)
     },
     onSettled: () => {
       setEditingId(null)
@@ -132,6 +170,14 @@ export default function NoteManager() {
     }
   }
 
+  const clearAll = () => {
+    if (window.confirm("Bạn có muốn xóa tất cả ghi chú?")) {
+      queryClient.setQueryData(["notes"], [])
+      saveNotesToStorage([])
+      queryClient.invalidateQueries({ queryKey: ["notes"] })
+    }
+  }
+
   if (isLoading) return <Spinner />
 
   if (isError) {
@@ -150,9 +196,12 @@ export default function NoteManager() {
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white">Quản lý ghi chú</h1>
-            <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">{notes.length} ghi chú</p>
+            <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">{notes.length} ghi chú (lưu localStorage)</p>
           </div>
-          <Button variant="primary" onClick={() => refetch()}>Làm mới</Button>
+          <div className="flex gap-2">
+            <Button variant="secondary" onClick={() => refetch()}>Làm mới API</Button>
+            <Button variant="danger" onClick={clearAll}>Xóa tất cả</Button>
+          </div>
         </div>
 
         {/* Add Note Form */}
