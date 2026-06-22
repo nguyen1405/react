@@ -6,6 +6,7 @@ import ProductDetail from "./pages/ProductDetail";
 import CartPage from "./pages/CartPage";
 import LoginPage from "./pages/LoginPage";
 import AdminProducts from "./pages/AdminProducts";
+import NoteManager from "./pages/NoteManager";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
           <Route path="/shop" element={<ProductGallery />} />
           <Route path="/shop/:id" element={<ProductDetail />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/notes" element={<NoteManager />} />
           <Route
             path="/cart"
             element={
