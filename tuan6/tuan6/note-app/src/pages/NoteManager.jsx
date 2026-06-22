@@ -160,11 +160,6 @@ export default function NoteManager() {
     }
   }
 
-  const refreshFromAPI = async () => {
-    const data = await noteService.getAll()
-    queryClient.setQueryData(["notes"], data)
-    saveNotesToStorage(data)
-  }
 
   const clearAll = () => {
     if (window.confirm("Bạn có muốn xóa tất cả ghi chú?")) {
@@ -194,7 +189,7 @@ export default function NoteManager() {
             <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">{notes.length} ghi chú (lưu localStorage)</p>
           </div>
           <div className="flex gap-2">
-            <Button variant="secondary" onClick={refreshFromAPI}>Tải lại từ API</Button>
+            
             <Button variant="danger" onClick={clearAll}>Xóa tất cả</Button>
           </div>
         </div>
