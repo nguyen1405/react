@@ -28,7 +28,7 @@ const ProductCard = memo(({ product }) => {
   return (
     <Link
       to={`/shop/${product.id}`}
-      className="group bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden block"
+      className="group bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden block h-full flex flex-col"
     >
       {/* Image */}
       <div className="relative aspect-[4/3] overflow-hidden bg-gray-100 dark:bg-gray-700">
@@ -44,12 +44,12 @@ const ProductCard = memo(({ product }) => {
       </div>
 
       {/* Content */}
-      <div className="p-4 sm:p-5">
+      <div className="p-4 sm:p-5 flex flex-col flex-1">
         <h3 className="text-base font-bold text-gray-900 dark:text-white truncate group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
           {product.name}
         </h3>
 
-        <p className="mt-1.5 text-sm text-gray-500 dark:text-gray-400 line-clamp-2 leading-relaxed">
+        <p className="mt-1.5 text-sm text-gray-500 dark:text-gray-400 line-clamp-2 leading-relaxed flex-1">
           {product.description}
         </p>
 
