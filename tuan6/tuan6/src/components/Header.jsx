@@ -9,7 +9,6 @@ const navLinks = [
   { label: "Quan ly", to: "/admin/products" },
   { label: "Trang chủ", to: "/" },
   { label: "Cửa hàng", to: "/shop" },
-  { label: "Ghi chú", to: "/notes" },
 ];
 
 const SunIcon = () => (
