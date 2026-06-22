@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Link } from "react-router-dom"
+import { BrowserRouter, Link } from "react-router-dom"
 import clsx from "clsx"
 import NoteManager from "./pages/NoteManager"
 
@@ -17,7 +17,7 @@ const MoonIcon = () => (
 )
 
 const NoteIcon = () => (
-  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
     <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
   </svg>
 )
@@ -33,11 +33,7 @@ const IconBtn = ({ onClick, label, children }) => (
 )
 
 const Header = ({ dark, setDark }) => {
-  const [mobileOpen, setMobileOpen] = useState(false)
-
-  const navLinks = [
-    { label: "Ghi chú", to: "/" },
-  ]
+  const navLinks = [{ label: "Ghi chú", to: "/" }]
 
   return (
     <header className="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200/60 dark:border-gray-800">
@@ -65,31 +61,11 @@ const Header = ({ dark, setDark }) => {
           </nav>
 
           <div className="flex items-center gap-1.5">
-            <IconBtn onClick={() => setDark(!dark)} label="Đổi theme">
+            <IconBtn onClick={() => { setDark(!dark); localStorage.setItem("theme", !dark ? "dark" : "light") }} label="Đổi theme">
               {dark ? <SunIcon /> : <MoonIcon />}
             </IconBtn>
           </div>
         </div>
-      </div>
-
-      <div
-        className={clsx(
-          "md:hidden border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 transition-all duration-300 overflow-hidden",
-          mobileOpen ? "max-h-[200px] opacity-100" : "max-h-0 opacity-0"
-        )}
-      >
-        <nav className="px-4 py-3 space-y-1">
-          {navLinks.map((link) => (
-            <Link
-              key={link.label}
-              to={link.to}
-              onClick={() => setMobileOpen(false)}
-              className="block px-4 py-2.5 text-sm font-medium text-gray-600 dark:text-gray-300 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-            >
-              {link.label}
-            </Link>
-          ))}
-        </nav>
       </div>
     </header>
   )
@@ -115,32 +91,35 @@ const Footer = () => (
   </footer>
 )
 
-function App() {
+function AppContent() {
   const [dark, setDark] = useState(() => {
-    if (typeof window !== "undefined") {
-      return localStorage.getItem("theme") === "dark"
-    }
-    return false
+    return localStorage.getItem("theme") === "dark"
+      || (!localStorage.getItem("theme") && window.matchMedia("(prefers-color-scheme: dark)").matches)
   })
 
-  if (typeof window !== "undefined") {
-    if (dark) {
-      document.documentElement.classList.add("dark")
-    } else {
-      document.documentElement.classList.remove("dark")
-    }
+  // Sync dark class to html
+  if (dark) {
+    document.documentElement.classList.add("dark")
+  } else {
+    document.documentElement.classList.remove("dark")
   }
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-950 transition-colors duration-300">
       <Header dark={dark} setDark={setDark} />
-
       <main id="main-content" className="flex-1">
         <NoteManager />
       </main>
-
       <Footer />
     </div>
+  )
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <AppContent />
+    </BrowserRouter>
   )
 }
 

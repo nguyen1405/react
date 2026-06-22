@@ -1,4 +1,4 @@
-import { StrictMode, useEffect } from "react"
+import { StrictMode } from "react"
 import { createRoot } from "react-dom/client"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
@@ -15,16 +15,6 @@ const queryClient = new QueryClient({
     },
   },
 })
-
-// Initialize dark mode from localStorage
-const initDarkMode = () => {
-  const theme = localStorage.getItem("theme")
-  if (theme === "dark" || (!theme && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
-    document.documentElement.classList.add("dark")
-  }
-}
-
-initDarkMode()
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
