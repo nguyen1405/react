@@ -1,6 +1,4 @@
-import { useState } from "react"
-import { BrowserRouter, Link } from "react-router-dom"
-import clsx from "clsx"
+import { useState, useEffect } from "react"
 import NoteManager from "./pages/NoteManager"
 
 // Icons
@@ -32,77 +30,64 @@ const IconBtn = ({ onClick, label, children }) => (
   </button>
 )
 
-const Header = ({ dark, setDark }) => {
-  const navLinks = [{ label: "Ghi chú", to: "/" }]
-
-  return (
-    <header className="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200/60 dark:border-gray-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <Link to="/" className="flex items-center gap-2.5">
-            <div className="w-9 h-9 bg-gradient-to-br from-primary-600 to-primary-700 rounded-xl flex items-center justify-center shadow-sm shadow-primary-600/30">
+const Header = ({ dark, setDark }) => (
+  <header className="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200/60 dark:border-gray-800">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="flex items-center justify-between h-16">
+        <div className="flex items-center gap-2.5">
+          <div className="w-9 h-9 bg-gradient-to-br from-primary-600 to-primary-700 rounded-xl flex items-center justify-center shadow-sm shadow-primary-600/30">
+            <span className="text-white">
               <NoteIcon />
-            </div>
-            <span className="text-xl font-bold text-gray-900 dark:text-white tracking-tight">
-              NoteApp
             </span>
-          </Link>
-
-          <nav className="hidden md:flex items-center gap-1">
-            {navLinks.map((link) => (
-              <Link
-                key={link.label}
-                to={link.to}
-                className="px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 rounded-xl hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200"
-              >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
-
-          <div className="flex items-center gap-1.5">
-            <IconBtn onClick={() => { setDark(!dark); localStorage.setItem("theme", !dark ? "dark" : "light") }} label="Đổi theme">
-              {dark ? <SunIcon /> : <MoonIcon />}
-            </IconBtn>
           </div>
+          <span className="text-xl font-bold text-gray-900 dark:text-white tracking-tight">
+            NoteApp
+          </span>
+        </div>
+
+        <div className="flex items-center gap-1.5">
+          <IconBtn onClick={() => { setDark(!dark); localStorage.setItem("theme", !dark ? "dark" : "light") }} label="Toggle theme">
+            {dark ? <SunIcon /> : <MoonIcon />}
+          </IconBtn>
         </div>
       </div>
-    </header>
-  )
-}
+    </div>
+  </header>
+)
 
 const Footer = () => (
   <footer className="border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 transition-colors duration-300">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="flex flex-col md:flex-row items-center justify-between gap-4">
         <p className="text-sm text-gray-400 dark:text-gray-500">
-          © 2026 NoteApp. All rights reserved.
+          &copy; 2026 NoteApp. All rights reserved.
         </p>
         <div className="flex items-center gap-6">
-          <a href="#" className="text-sm text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
-            Chính sách bảo mật
-          </a>
-          <a href="#" className="text-sm text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
-            Điều khoản sử dụng
-          </a>
+          <a href="#" className="text-sm text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">Chính sách bảo mật</a>
+          <a href="#" className="text-sm text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">Điều khoản sử dụng</a>
         </div>
       </div>
     </div>
   </footer>
 )
 
-function AppContent() {
+function App() {
   const [dark, setDark] = useState(() => {
+    if (typeof window === "undefined") return false
     return localStorage.getItem("theme") === "dark"
       || (!localStorage.getItem("theme") && window.matchMedia("(prefers-color-scheme: dark)").matches)
   })
 
-  // Sync dark class to html
-  if (dark) {
-    document.documentElement.classList.add("dark")
-  } else {
-    document.documentElement.classList.remove("dark")
-  }
+  useEffect(() => {
+    if (!document) return
+    if (dark) {
+      document.documentElement.classList.add("dark")
+      localStorage.setItem("theme", "dark")
+    } else {
+      document.documentElement.classList.remove("dark")
+      localStorage.setItem("theme", "light")
+    }
+  }, [dark])
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-950 transition-colors duration-300">
@@ -112,14 +97,6 @@ function AppContent() {
       </main>
       <Footer />
     </div>
-  )
-}
-
-function App() {
-  return (
-    <BrowserRouter>
-      <AppContent />
-    </BrowserRouter>
   )
 }
 
